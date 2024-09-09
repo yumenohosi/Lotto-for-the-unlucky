@@ -82,15 +82,15 @@ const UnluckyLottoGenerator = () => {
     <Card className="w-full h-full sm:h-auto sm:max-w-md mx-auto flex flex-col justify-between">
       <CardHeader className="space-y-2">
         <CardTitle className="text-xl sm:text-2xl text-center">{t.title}</CardTitle>
-        <CardDescription className="text-sm sm:text-base">
-          {t.description}
+        <div className="text-sm sm:text-base">
+          <CardDescription>{t.description}</CardDescription>
           <ol className="list-decimal list-inside mt-2 space-y-1">
             <li>{t.step1}</li>
             <li>{t.step2}</li>
             <li>{t.step3}</li>
           </ol>
-          {t.conclusion}
-        </CardDescription>
+          <CardDescription>{t.conclusion}</CardDescription>
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center flex-grow">
         <div className="grid grid-cols-3 gap-4 mb-8">
