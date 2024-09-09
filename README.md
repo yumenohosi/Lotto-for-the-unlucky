@@ -44,3 +44,11 @@ This project is a fun lottery number generator for "unlucky" people. It's built 
 ## License
 
 This project is under the MIT License. See the [LICENSE.md](LICENSE.md) file for details.
+
+## Test URL
+
+To see the app in action, please visit the following URL:
+
+[https://lotto-for-the-unlucky.vercel.app/](https://lotto-for-the-unlucky.vercel.app/)
+
+You can use this link to test the actual implemented application.
