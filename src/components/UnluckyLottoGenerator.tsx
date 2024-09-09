@@ -1,13 +1,43 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
+const translations = {
+  en: {
+    title: "Unlucky Lotto Number Generator",
+    description: "This generator works as follows:",
+    step1: "Generates all possible lotto number combinations (8,145,060 in total).",
+    step2: "Shuffles all generated combinations randomly.",
+    step3: "Selects the very last combination from the shuffled list.",
+    conclusion: "This way, we can pick the most unlucky numbers!",
+    generating: "Generating...",
+    generate: "Generate Numbers"
+  },
+  ko: {
+    title: "운없는 사람들을 위한 로또 번호 생성기",
+    description: "이 생성기는 다음과 같은 원리로 작동합니다:",
+    step1: "모든 가능한 로또 번호 조합을 생성합니다 (8,145,060개).",
+    step2: "생성된 모든 조합을 무작위로 섞습니다.",
+    step3: "섞인 조합 중 가장 마지막 조합을 선택합니다.",
+    conclusion: "이렇게 하면 가장 운이 없는 번호를 뽑을 수 있습니다!",
+    generating: "생성 중...",
+    generate: "번호 생성하기"
+  }
+}
+
 const UnluckyLottoGenerator = () => {
   const [numbers, setNumbers] = useState<number[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
+  const [lang, setLang] = useState('en')
+
+  useEffect(() => {
+    setLang(navigator.language.startsWith('ko') ? 'ko' : 'en')
+  }, [])
+
+  const t = translations[lang as keyof typeof translations]
 
   const generateCombinations = () => {
     const allCombinations: number[][] = []
@@ -51,15 +81,15 @@ const UnluckyLottoGenerator = () => {
   return (
     <Card className="w-full h-full sm:h-auto sm:max-w-md mx-auto flex flex-col justify-between">
       <CardHeader className="space-y-2">
-        <CardTitle className="text-xl sm:text-2xl text-center">운없는 사람들을 위한 로또 번호 생성기</CardTitle>
+        <CardTitle className="text-xl sm:text-2xl text-center">{t.title}</CardTitle>
         <CardDescription className="text-sm sm:text-base">
-          이 생성기는 다음과 같은 원리로 작동합니다:
+          {t.description}
           <ol className="list-decimal list-inside mt-2 space-y-1">
-            <li>모든 가능한 로또 번호 조합을 생성합니다 (8,145,060개).</li>
-            <li>생성된 모든 조합을 무작위로 섞습니다.</li>
-            <li>섞인 조합 중 가장 마지막 조합을 선택합니다.</li>
+            <li>{t.step1}</li>
+            <li>{t.step2}</li>
+            <li>{t.step3}</li>
           </ol>
-          이렇게 하면 가장 운이 없는 번호를 뽑을 수 있습니다!
+          {t.conclusion}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center flex-grow">
@@ -82,7 +112,7 @@ const UnluckyLottoGenerator = () => {
           disabled={isGenerating}
           className="w-full py-6 text-lg"
         >
-          {isGenerating ? "생성 중..." : "번호 생성하기"}
+          {isGenerating ? t.generating : t.generate}
         </Button>
       </CardContent>
     </Card>
