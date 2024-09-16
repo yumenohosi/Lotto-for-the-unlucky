@@ -47,6 +47,7 @@ const UnluckyLottoGenerator: React.FC<UnluckyLottoGeneratorProps> = ({ initialNu
   const [lang, setLang] = useState('en')
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [canShare, setCanShare] = useState(false);
 
   useEffect(() => {
     setLang(navigator.language.startsWith('ko') ? 'ko' : 'en')
@@ -58,6 +59,7 @@ const UnluckyLottoGenerator: React.FC<UnluckyLottoGeneratorProps> = ({ initialNu
         setNumbers(urlNumbers.split(',').map(Number));
       }
     }
+    setCanShare('share' in navigator);
   }, [initialNumbers, searchParams])
 
   const t = translations[lang as keyof typeof translations]
@@ -161,7 +163,7 @@ const UnluckyLottoGenerator: React.FC<UnluckyLottoGeneratorProps> = ({ initialNu
         >
           {isGenerating ? t.generating : t.generate}
         </Button>
-        {numbers.length > 0 && navigator.share && (
+        {numbers.length > 0 && canShare && (
           <Button 
             onClick={handleShare}
             variant="outline"
