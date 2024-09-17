@@ -128,7 +128,7 @@ const UnluckyLottoGenerator: React.FC<UnluckyLottoGeneratorProps> = ({ initialNu
   };
 
   return (
-    <Card className="w-full max-w-lg mx-auto">
+    <Card className="w-full max-w-lg mx-auto sm:rounded-lg sm:shadow-md">
       <CardHeader className="space-y-2">
         <CardTitle className="text-xl sm:text-2xl text-center">{t.title}</CardTitle>
         <CardDescription className="text-sm sm:text-base">
@@ -142,24 +142,24 @@ const UnluckyLottoGenerator: React.FC<UnluckyLottoGeneratorProps> = ({ initialNu
         <p className="text-sm sm:text-base">{t.conclusion}</p>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center flex-grow">
-        <div className="grid grid-cols-3 gap-4 mb-8 p-4 bg-white rounded-lg">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-8 p-2 sm:p-4 bg-white rounded-lg">
           {numbers.length > 0
             ? numbers.map((number, index) => (
                 <div
                   key={index}
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl sm:text-3xl font-bold"
+                  className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl sm:text-2xl md:text-3xl font-bold"
                 >
                   {number}
                 </div>
               ))
             : Array(6).fill(0).map((_, index) => (
-                <Skeleton key={index} className="w-20 h-20 sm:w-24 sm:h-24 rounded-full" />
+                <Skeleton key={index} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full" />
               ))}
         </div>
         <Button 
           onClick={generateNumbers} 
           disabled={isGenerating}
-          className="w-full py-6 text-lg mb-4"
+          className="w-full py-4 sm:py-6 text-base sm:text-lg mb-4"
         >
           {isGenerating ? t.generating : t.generate}
         </Button>
@@ -167,7 +167,7 @@ const UnluckyLottoGenerator: React.FC<UnluckyLottoGeneratorProps> = ({ initialNu
           <Button 
             onClick={handleShare}
             variant="outline"
-            className="w-full py-4 text-lg"
+            className="w-full py-3 sm:py-4 text-base sm:text-lg"
           >
             {t.shareToSocial}
           </Button>

@@ -31,7 +31,7 @@ export async function generateMetadata({ searchParams }: HomeProps): Promise<Met
 
 export default function Home({ searchParams }: HomeProps) {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-4 sm:p-24">
       <UnluckyLottoGenerator initialNumbers={searchParams?.numbers} />
     </main>
   );
