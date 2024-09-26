@@ -1,0 +1,14 @@
+{
+  "title": "Máy Tạo Số Xổ Số Cho Người Không May Mắn",
+  "description": "Máy tạo này hoạt động như sau:",
+  "step1": "Tạo ra tất cả các tổ hợp số xổ số có thể (tổng cộng 8,145,060).",
+  "step2": "Xáo trộn ngẫu nhiên tất cả các tổ hợp đã tạo.",
+  "step3": "Chọn tổ hợp cuối cùng từ danh sách đã xáo trộn.",
+  "conclusion": "Bằng cách này, chúng ta có thể chọn ra những con số không may mắn nhất!",
+  "generating": "Đang tạo...",
+  "generate": "Tạo Số",
+  "shareTitle": "Số Xổ Số Cho Người Không May Mắn",
+  "shareText": "Số xổ số không may mắn của tôi:",
+  "shareImage": "Chia sẻ dưới dạng Hình ảnh",
+  "shareToSocial": "Chia sẻ lên Mạng xã hội"
+}

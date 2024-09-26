@@ -5,37 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useRouter, useSearchParams } from 'next/navigation';
-
-const translations = {
-  en: {
-    title: "Unlucky Lotto Number Generator",
-    description: "This generator works as follows:",
-    step1: "Generates all possible lotto number combinations (8,145,060 in total).",
-    step2: "Shuffles all generated combinations randomly.",
-    step3: "Selects the very last combination from the shuffled list.",
-    conclusion: "This way, we can pick the most unlucky numbers!",
-    generating: "Generating...",
-    generate: "Generate Numbers",
-    shareTitle: "Unlucky Lotto Numbers",
-    shareText: "My unlucky lotto numbers:",
-    shareImage: "Share as Image",
-    shareToSocial: "Share to Social Media"
-  },
-  ko: {
-    title: "운없는 사람들을 위한 로또 번호 생성기",
-    description: "이 생성기는 다음과 같은 원리로 작동합니다:",
-    step1: "모든 가능한 로또 번호 조합을 생성합니다 (8,145,060개).",
-    step2: "생성된 모든 조합을 무작위로 섞습니다.",
-    step3: "섞인 조합 중 가장 마지막 조합을 선택합니다.",
-    conclusion: "이렇게 하면 가장 운이 없는 번호를 뽑을 수 있습니다!",
-    generating: "생성 중...",
-    generate: "번호 생성하기",
-    shareTitle: "운없는 사람들을 위한 로또 번호",
-    shareText: "내 운없는 로또 번호:",
-    shareImage: "이미지로 공유하기",
-    shareToSocial: "소셜 미디어로 공유하기"
-  }
-}
+import { generateUnluckyLottoNumbers } from "@/utils/lottoGenerator";
+import { useTranslations, Language, translations } from "@/utils/translations";
 
 interface UnluckyLottoGeneratorProps {
   initialNumbers?: string;
@@ -44,13 +15,14 @@ interface UnluckyLottoGeneratorProps {
 const UnluckyLottoGenerator: React.FC<UnluckyLottoGeneratorProps> = ({ initialNumbers }) => {
   const [numbers, setNumbers] = useState<number[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
-  const [lang, setLang] = useState('en')
+  const [lang, setLang] = useState<Language>('en')
   const router = useRouter();
   const searchParams = useSearchParams();
   const [canShare, setCanShare] = useState(false);
 
   useEffect(() => {
-    setLang(navigator.language.startsWith('ko') ? 'ko' : 'en')
+    const userLang = navigator.language.split('-')[0];
+    setLang(userLang in translations ? userLang as Language : 'en');
     if (initialNumbers) {
       setNumbers(initialNumbers.split(',').map(Number));
     } else if (searchParams) {
@@ -62,49 +34,21 @@ const UnluckyLottoGenerator: React.FC<UnluckyLottoGeneratorProps> = ({ initialNu
     setCanShare('share' in navigator);
   }, [initialNumbers, searchParams])
 
-  const t = translations[lang as keyof typeof translations]
-
-  const generateCombinations = () => {
-    const allCombinations: number[][] = []
-    for (let a = 1; a <= 40; a++) {
-      for (let b = a + 1; b <= 41; b++) {
-        for (let c = b + 1; c <= 42; c++) {
-          for (let d = c + 1; d <= 43; d++) {
-            for (let e = d + 1; e <= 44; e++) {
-              for (let f = e + 1; f <= 45; f++) {
-                allCombinations.push([a, b, c, d, e, f])
-              }
-            }
-          }
-        }
-      }
-    }
-    return allCombinations
-  }
-
-  const shuffleArray = (array: number[][]) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]]
-    }
-    return array
-  }
+  const t = useTranslations(lang)
 
   const generateNumbers = () => {
     setIsGenerating(true)
     setNumbers([])
 
     setTimeout(() => {
-      const combinations = generateCombinations()
-      const shuffled = shuffleArray(combinations)
-      const lastCombination = shuffled[shuffled.length - 1]
+      const lastCombination = generateUnluckyLottoNumbers()
       setNumbers(lastCombination)
-      setIsGenerating(false)
       
       // URL 업데이트
       const newUrl = new URL(window.location.href);
       newUrl.searchParams.set('numbers', lastCombination.join(','));
       router.push(newUrl.toString());
+      setIsGenerating(false)
     }, 3000)
   }
 

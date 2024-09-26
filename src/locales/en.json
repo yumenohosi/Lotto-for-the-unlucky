@@ -1,0 +1,14 @@
+{
+  "title": "Unlucky Lotto Number Generator",
+  "description": "This generator works as follows:",
+  "step1": "Generates all possible lotto number combinations (8,145,060 in total).",
+  "step2": "Shuffles all generated combinations randomly.",
+  "step3": "Selects the very last combination from the shuffled list.",
+  "conclusion": "This way, we can pick the most unlucky numbers!",
+  "generating": "Generating...",
+  "generate": "Generate Numbers",
+  "shareTitle": "Unlucky Lotto Numbers",
+  "shareText": "My unlucky lotto numbers:",
+  "shareImage": "Share as Image",
+  "shareToSocial": "Share to Social Media"
+}
